@@ -8,8 +8,8 @@ Java library for reading and writing web shortcut files
 Websites
 --------
 Main Website: http://beckus.github.io/WebShortcutUtil/<br/>
-Source Code:  https://github.com/abcodeworks/WebShortcutUtil-Java<br/>
-JavaDocs:     
+Source Code:  https://github.com/abcodeworks/WebShortcutUtil-Java/<br/>
+JavaDocs:     http://abcodeworks.github.io/WebShortcutUtil-Java/javadoc/latest/
 
 Building
 --------
