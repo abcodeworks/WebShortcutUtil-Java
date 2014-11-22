@@ -21,6 +21,8 @@
 
 package com.abcodeworks.webshortcututil.read;
 
+import static org.junit.Assert.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,44 +33,12 @@ import org.junit.rules.TemporaryFolder;
 
 import com.abcodeworks.webshortcututil.read.ShortcutContents;
 import com.abcodeworks.webshortcututil.read.ShortcutReadException;
-import com.abcodeworks.webshortcututil.read.ShortcutReadUtil;
 import com.abcodeworks.webshortcututil.read.ShortcutReader;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
-import java.net.URL;
 
-public class ShortcutReaderTest 
+public class ShortcutReaderTest
 {
-    // This is duplicated - We should pull this into a utility class
-    protected InputStream getTestStream(String path, String filename) throws IOException
-    {
-        String resourcePath = File.separator + path + File.separator + filename;
-        
-        URL resourceUrl = getClass().getResource(resourcePath);
-        if(resourceUrl == null) {
-            fail("Resource not found: " + resourcePath);
-        }
-        return resourceUrl.openStream();
-    }
-    
-    protected void testShortcut(ShortcutReader reader, String path, String filename, String expectedName, String expectedUrl)
-            throws IOException, ShortcutReadException
-    {
-        String urlString;
-
-        InputStream instream = getTestStream(path, filename);
-        urlString = reader.readUrlString(instream);
-        assertEquals(expectedUrl, urlString);
-        instream.close();
-        
-        instream = getTestStream(path, filename);
-        urlString = ShortcutReadUtil.readUrlStringTrialAndError(instream);
-        assertEquals(expectedUrl, urlString);
-        instream.close();
-    }
-    
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
     

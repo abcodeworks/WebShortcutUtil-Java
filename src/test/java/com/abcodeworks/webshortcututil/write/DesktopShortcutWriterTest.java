@@ -24,6 +24,8 @@ package com.abcodeworks.webshortcututil.write;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -34,9 +36,18 @@ import com.abcodeworks.webshortcututil.write.FileAlreadyExistsException;
 import com.abcodeworks.webshortcututil.write.ShortcutWriteException;
 import com.abcodeworks.webshortcututil.write.ShortcutWriter;
 
-public class DesktopShortcutWriterTest extends ShortcutWriterTest {
+import static com.abcodeworks.webshortcututil.ShortcutTestHelper.testWriteShortcut;
+
+public class DesktopShortcutWriterTest {
+    ShortcutWriter writer = null;
+    
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
+    
+    @Before
+    public void setUp() throws Exception {
+        writer = new DesktopShortcutWriter();
+    }
     
     @Test
     public void testWrite()
@@ -46,7 +57,6 @@ public class DesktopShortcutWriterTest extends ShortcutWriterTest {
                          FileAlreadyExistsException,
                          ShortcutWriteException
     {
-        ShortcutWriter writer = new DesktopShortcutWriter();
         File folder = tempFolder.newFolder("desktop");
         testWriteShortcut(writer, folder, "Google", "http://www.google.com");
         testWriteShortcut(writer, folder, " !#$&'()+,-.09;=@AZ[]_`az{}~", "http://www.google.com");
@@ -60,7 +70,6 @@ public class DesktopShortcutWriterTest extends ShortcutWriterTest {
                          FileAlreadyExistsException,
                          ShortcutWriteException
     {
-        ShortcutWriter writer = new DesktopShortcutWriter();
         File folder = tempFolder.newFolder("desktop_nonascii");
         testWriteShortcut(writer, folder, "导航.中国", "http://导航.中国/");
     }

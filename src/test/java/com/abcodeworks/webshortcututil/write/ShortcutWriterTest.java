@@ -22,26 +22,15 @@
 package com.abcodeworks.webshortcututil.write;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
 
-import com.abcodeworks.webshortcututil.read.ShortcutContents;
 import com.abcodeworks.webshortcututil.read.ShortcutReadException;
-import com.abcodeworks.webshortcututil.read.ShortcutReadUtil;
 import com.abcodeworks.webshortcututil.write.DesktopShortcutWriter;
-import com.abcodeworks.webshortcututil.write.FileAlreadyExistsException;
-import com.abcodeworks.webshortcututil.write.ShortcutWriteException;
 import com.abcodeworks.webshortcututil.write.ShortcutWriter;
 import com.abcodeworks.webshortcututil.write.UrlShortcutWriter;
 import com.abcodeworks.webshortcututil.write.WeblocBinaryShortcutWriter;
@@ -50,30 +39,6 @@ import com.abcodeworks.webshortcututil.write.WeblocXmlShortcutWriter;
 public class ShortcutWriterTest {
     @Rule
     public ExpectedException thrown= ExpectedException.none();
-    
-    protected void testWriteShortcut(ShortcutWriter writer, File path, String name, String url)
-            throws IOException, ShortcutReadException, FileAlreadyExistsException, ShortcutWriteException
-    {
-        String filename = writer.createFilename(name);
-        File fullFilename = new File(path, filename);
-        writer.write(fullFilename, name, url); 
-        ShortcutContents contents = ShortcutReadUtil.read(fullFilename);
-        
-        assertEquals(name, contents.getName());
-        assertEquals(url, contents.getUrlString());
-        
-        assertEquals(url, ShortcutReadUtil.readUrlString(fullFilename));
- 
-        FileInputStream instream = new FileInputStream(fullFilename);
-        assertEquals(url, ShortcutReadUtil.readUrlStringTrialAndError(instream));
-        instream.close();
-        
-        try {
-            writer.write(fullFilename, name, url);
-            fail("Did not get FileAlreadyExistsException");
-        } catch(FileAlreadyExistsException e) {
-        }
-    }
     
     @Test
     public void testCreateFilename()

@@ -24,30 +24,31 @@ package com.abcodeworks.webshortcututil.read;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-
 import org.junit.*;
 
 import com.abcodeworks.webshortcututil.read.ShortcutReadException;
 import com.abcodeworks.webshortcututil.read.ShortcutReader;
 import com.abcodeworks.webshortcututil.read.WebsiteShortcutReader;
 
-import static org.junit.Assert.*;
+import static com.abcodeworks.webshortcututil.ShortcutTestHelper.testReadShortcut;
 
-import java.net.URL;
+public class WebsiteShortcutReaderTest {
+    ShortcutReader reader = null;
 
-public class WebsiteShortcutReaderTest extends ShortcutReaderTest {
     final String
         WEBSITE_IE9_PATH =  "samples" + File.separator + "real" + File.separator + "website" + File.separator + "IE9",
         WEBSITE_IE10_PATH = "samples" + File.separator + "real" + File.separator + "website" + File.separator + "IE10";
     
+    @Before
+    public void setUp() throws Exception {
+        reader = new WebsiteShortcutReader();
+    }
+    
     protected void testHelper(String path) throws ShortcutReadException, IOException {
-        ShortcutReader reader = new WebsiteShortcutReader();
-        
-        testShortcut(reader, path, "Google.website", "Google", "https://www.google.com/");
-        testShortcut(reader, path, "Microsoft Corporation.website", "Microsoft Corporation", "http://www.microsoft.com/sv-se/default.aspx");
-        testShortcut(reader, path, "Myspace  Social Entertainment.website", "Myspace  Social Entertainment", "http://www.myspace.com/");
-        testShortcut(reader, path, "Yahoo!.website", "Yahoo!", "http://www.yahoo.com/");
+        testReadShortcut(reader, path, "Google.website", "Google", "https://www.google.com/");
+        testReadShortcut(reader, path, "Microsoft Corporation.website", "Microsoft Corporation", "http://www.microsoft.com/sv-se/default.aspx");
+        testReadShortcut(reader, path, "Myspace  Social Entertainment.website", "Myspace  Social Entertainment", "http://www.myspace.com/");
+        testReadShortcut(reader, path, "Yahoo!.website", "Yahoo!", "http://www.yahoo.com/");
     }
     
     @Test
@@ -66,14 +67,12 @@ public class WebsiteShortcutReaderTest extends ShortcutReaderTest {
     
     
     protected void testHelperNonAscii(String path) throws ShortcutReadException, IOException {
-        ShortcutReader reader = new WebsiteShortcutReader();
-        
-        testShortcut(reader, path, "CIOとITマネージャーの課題を解決するオンラインメディア - ZDNet Japan.website", "CIOとITマネージャーの課題を解決するオンラインメディア - ZDNet Japan", "http://japan.zdnet.com/");
-        testShortcut(reader, path, "sverige - Sök på Google.website", "sverige - Sök på Google", "http://www.google.se/");
-        testShortcut(reader, path, "www.ÖÐ¹úÕþ¸®.ÕþÎñ.cn.website", "www.ÖÐ¹úÕþ¸®.ÕþÎñ.cn", "http://www.中国政府.政务.cn/");
-        testShortcut(reader, path, "中国雅虎首页.website", "中国雅虎首页", "http://cn.yahoo.com/");
-        testShortcut(reader, path, "导航.中国.website", "导航.中国", "http://导航.中国/");
-        testShortcut(reader, path, "百度一下，你就知道.website", "百度一下，你就知道", "http://www.baidu.com/");
+        testReadShortcut(reader, path, "CIOとITマネージャーの課題を解決するオンラインメディア - ZDNet Japan.website", "CIOとITマネージャーの課題を解決するオンラインメディア - ZDNet Japan", "http://japan.zdnet.com/");
+        testReadShortcut(reader, path, "sverige - Sök på Google.website", "sverige - Sök på Google", "http://www.google.se/");
+        testReadShortcut(reader, path, "www.ÖÐ¹úÕþ¸®.ÕþÎñ.cn.website", "www.ÖÐ¹úÕþ¸®.ÕþÎñ.cn", "http://www.中国政府.政务.cn/");
+        testReadShortcut(reader, path, "中国雅虎首页.website", "中国雅虎首页", "http://cn.yahoo.com/");
+        testReadShortcut(reader, path, "导航.中国.website", "导航.中国", "http://导航.中国/");
+        testReadShortcut(reader, path, "百度一下，你就知道.website", "百度一下，你就知道", "http://www.baidu.com/");
     }
     
     @Test

@@ -24,8 +24,6 @@ package com.abcodeworks.webshortcututil.read;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,23 +32,14 @@ import org.junit.rules.ExpectedException;
 import com.abcodeworks.webshortcututil.read.ShortcutReadException;
 import com.abcodeworks.webshortcututil.read.ShortcutReadUtil;
 
+import static com.abcodeworks.webshortcututil.ShortcutTestHelper.getTestStream;
+
 import static org.junit.Assert.*;
 
-public class ShortcutReadUtilTest {
+public class ShortcutReadUtilTest
+{
     @Rule
     public ExpectedException thrown= ExpectedException.none();
-    
-    // This is duplicated - We should pull this into a utility class
-    protected InputStream getTestStream(String path, String filename) throws IOException
-    {
-        String resourcePath = File.separator + path + File.separator + filename;
-        
-        URL resourceUrl = getClass().getResource(resourcePath);
-        if(resourceUrl == null) {
-            fail("Resource not found: " + resourcePath);
-        }
-        return resourceUrl.openStream();
-    }
     
     @Test
     public void testHasValidExtension()
