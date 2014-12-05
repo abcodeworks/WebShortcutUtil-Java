@@ -11,7 +11,7 @@
  * If you want to create a file, call the
  * {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#write(File, String, String) write}
  * method.  You can use the
- * {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#createFilename(String) createFilename}
+ * {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#createFullFilename(String) createFullFilename}
  * method to generate a file name.  It takes the provided base file name, adds the appropriate extension,
  * and removes any special characters in the name.  The generated file name should be compatible with most
  * operating systems.  If you need to write the shortcut to a stream, use the 

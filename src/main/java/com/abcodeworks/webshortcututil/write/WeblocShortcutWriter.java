@@ -40,7 +40,7 @@ abstract public class WeblocShortcutWriter extends ShortcutWriter {
             throws ShortcutWriteException;
     
     @Override
-    protected String defaultExtension() {
+    public String defaultExtension() {
         return "webloc";
     }
 

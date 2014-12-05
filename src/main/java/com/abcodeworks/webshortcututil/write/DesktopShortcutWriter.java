@@ -36,7 +36,7 @@ import com.abcodeworks.webshortcututil.read.ShortcutReadException;
 public class DesktopShortcutWriter extends ShortcutWriter {
 
     @Override
-    protected String defaultExtension() {
+    public String defaultExtension() {
         return "desktop";
     }
 

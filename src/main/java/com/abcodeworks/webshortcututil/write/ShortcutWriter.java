@@ -46,10 +46,12 @@ public abstract class ShortcutWriter {
          */
         Pattern invalidCharPattern = Pattern.compile("[^ !#\\$&'\\(\\)+,\\-\\.,0-9;=\\@A-Z\\[\\]_`a-z\\{\\}~\u0080-\uFFFF]");
     
-        /* This should be overridden by each child writer class.  This indicates the standard extension used
-         * for the writer's shortcut type.
+        /**
+         * Indicates the standard extension used for the writer's shortcut type.  
+         * 
+         * @return The extension, without a period (e.g. "url", "desktop", "webloc").  Non-null.
          */
-        abstract protected String defaultExtension();
+        abstract public String defaultExtension();
     
         /**
          * Similar to {#link #write(File, String, String)} but writes to a stream instead of a file.
@@ -85,25 +87,53 @@ public abstract class ShortcutWriter {
          * {@link #DEFAULT_MAX_FILENAME_LENGTH} (including the extension),
          * it will be truncated.  This maximum length was chosen somewhat
          * arbitrarily.  You may optionally override it by using
-         * {@link #createFilename(String, int)}.</li>
+         * {@link #createFullFilename(String, int)}.</li>
          * </ul>
          * 
          * @param name The name to use as the base of the file name.
          * @return A valid file name with a complete extension.  Non-null.
          */
-        public String createFilename(String name) {
-            return createFilename(name, DEFAULT_MAX_FILENAME_LENGTH);
+        public String createFullFilename(String name) {
+            return createFullFilename(name, DEFAULT_MAX_FILENAME_LENGTH);
         }
         
         /**
-         * Creates a file name.  See {@link #createFilename(String)} for details.
+         * Similar to {@link #createFullFilename(String)}, but the extension
+         * is not included.  The same length rules are followed, and
+         * this method returns the same base name as {@link #createFullFilename(String)}
+         * 
+         * @param name The name to use as the base of the file name.
+         * @return A valid file name without an extension.  Non-null.
+         */
+        public String createBaseFilename(String name) {
+            return createBaseFilename(name, DEFAULT_MAX_FILENAME_LENGTH);
+        }
+        
+        /**
+         * Creates a file name.  See {@link #createFullFilename(String)} for details.
          * 
          * @param name The name to use as the base of the file name.
          * @param maxLength The maximum length of the file name (including the extension).  Must be large enough to accommodate
          *                  the extension plus a one-character base file name.
          * @return A valid file name with a complete extension.  The size will be less than maxLength.  Non-null.
          */
-        public String createFilename(String name, int maxLength) {
+        public String createFullFilename(String name, int maxLength) {
+            return createBaseFilename(name, maxLength) + "." + defaultExtension();
+        }
+
+        /**
+         * Similar to {@link #createFullFilename(String,int)}, but the extension
+         * is not included.  The same length rules are followed, and
+         * this method returns the same base name as {@link #createFullFilename(String,int)}
+         * 
+         * @param name The name to use as the base of the file name.
+         * @param maxLength The maximum length of the file name (including the extension).  Must be large enough to accommodate
+         *                  the extension plus a one-character base file name.
+         * @return A valid file name without an extension.  When an extension (with a period) is
+         *         added to the returned file name, the resulting string is guaranteed to
+         *         be less than maxLength.  Non-null.
+         */
+        public String createBaseFilename(String name, int maxLength) {
             String extension = defaultExtension();
             String cleanName;
             
@@ -133,7 +163,7 @@ public abstract class ShortcutWriter {
             int nameMaxLength = Math.min(maxLength - extension.length() - 1, cleanName.length());
             
             // Truncate the base name and add the extension.
-            String filename = cleanName.substring(0, nameMaxLength) + "." + extension;
+            String filename = cleanName.substring(0, nameMaxLength);
             
             return filename;
         }

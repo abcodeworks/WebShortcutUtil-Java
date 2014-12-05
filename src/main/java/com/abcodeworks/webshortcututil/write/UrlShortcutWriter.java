@@ -35,7 +35,7 @@ import com.abcodeworks.webshortcututil.read.ShortcutReadException;
  * 
  */
 public class UrlShortcutWriter extends ShortcutWriter {
-    protected String defaultExtension() {
+    public String defaultExtension() {
         return "url";
     }
     

@@ -32,7 +32,7 @@ import com.dd.plist.PropertyListParser;
  */
 public class WeblocXmlShortcutWriter extends WeblocShortcutWriter {
     @Override
-    protected void writePlist(OutputStream stream, NSObject root)
+    public void writePlist(OutputStream stream, NSObject root)
             throws ShortcutWriteException {
         try {
             // Note that the stream is automatically closed by the PropertyListParser
