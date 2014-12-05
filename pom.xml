@@ -9,7 +9,7 @@
 
   <name>WebShortcutUtil</name>
   <description>Java library for reading and writing web shortcut files</description>
-  <url>http://beckus.github.io/WebShortcutUtil/</url>
+  <url>http://github.com/abcodeworks/WebShortcutUtil-Java/</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
