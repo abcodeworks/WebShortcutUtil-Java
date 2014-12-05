@@ -77,6 +77,6 @@
   <scm>
     <connection>scm:git:git@github.com:abcodeworks/WebShortcutUtil-Java.git</connection>
     <developerConnection>scm:git:git@github.com:abcodeworks/WebShortcutUtil-Java.git</developerConnection>
-    <url>git@github.com:abcodeworks/WebShortcutUtil-Java.git</url>
+    <url>https://github.com/abcodeworks/WebShortcutUtil-Java.git</url>
   </scm>
 </project>
