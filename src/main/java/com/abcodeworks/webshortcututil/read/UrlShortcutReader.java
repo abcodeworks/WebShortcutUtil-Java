@@ -62,7 +62,9 @@ public class UrlShortcutReader extends ShortcutReader {
         
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         
-        // Peak at the first character
+        // Let's check and see if this is really a url shortcut before we start.
+        // We want to fail fast, especially if we are not sure if this is a shortcut.
+        // Peek at the first character
         assert(reader.markSupported());
         try {
             // We only need to read 1 character, but let's use a bigger buffer just in case.

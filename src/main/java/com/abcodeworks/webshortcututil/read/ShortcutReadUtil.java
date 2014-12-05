@@ -143,7 +143,7 @@ public class ShortcutReadUtil {
     }
     
     /* Attempts to read from the buffered stream using the specified reader.  If the reader throws
-     * an exception than reset the stream for the next attempt.
+     * an exception then reset the stream for the next attempt.
      * If we cannot reset the buffer, assume the reader read too many characters and throw an exception.
      */
     protected static String readUrlStringAttempt(ShortcutReader reader, BufferedInputStream bufferedStream, int bufferSize)
@@ -216,7 +216,7 @@ public class ShortcutReadUtil {
         // We will not attempt to read the stream as a WEBSITE shortcut - the URL and WEBSITE implementations
         // are the same.
         
-     // Attempt reading the file as a .desktop
+       // Attempt reading the file as a .desktop
         url = readUrlStringAttempt(new DesktopShortcutReader(), bufferedStream, bufferSize);
         if(url != null) {
             return url;
@@ -224,6 +224,7 @@ public class ShortcutReadUtil {
         
         // Attempt reading the file as a .webloc.
         // We leave this for last since the plist library closes the stream.
+        // This means this method is not working as specified - consider it a bug.
         // It looks like this will be changed in a future version of the library.
         // The latest version loads the entire shortcut into memory, so we probably
         // should still leave the webloc for last.

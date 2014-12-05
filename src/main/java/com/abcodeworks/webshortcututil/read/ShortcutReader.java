@@ -42,14 +42,14 @@ public abstract class ShortcutReader {
         // Key/Value pair e.g. MyKey=MyValue
         key_value_pattern = Pattern.compile("^\\s*([A-Za-z0-9-]*)(\\[([^\\[\\]]*)\\])?\\s*=\\s*([^\\n\\r]*?)\\s*$");
     
-    /* Checks if the str matches the specified pattern. */
+    /* Checks if str matches the specified pattern. */
     protected boolean matches(Pattern p, String str)
     {
         Matcher matcher = p.matcher(str);
         return matcher.matches();
     }
     
-    /* Gets the shortcut name which is assumed to be the same as the
+    /* Gets the shortcut name, which is assumed to be the same as the
      * name of the file.
      */
     protected String getShortcutName(File file) {

@@ -54,14 +54,16 @@ public class DesktopShortcutReader extends ShortcutReader {
             throw new ShortcutReadException(e);
         }
         
-        // Peak at the first character
+        // Let's check and see if this is really a desktop shortcut before we start.
+        // We want to fail fast, especially if we are not sure if this is a shortcut.
+        // Peek at the first character
         assert(reader.markSupported());
         try {
             // We only need to read 1 character, but let's use a bigger buffer just in case.
             reader.mark(16); 
             // Assume that it is OK to cast the int return value to a char.
             char firstChar = (char)reader.read();
-            // The first character should either be whitespace or shoudl start a comment or a header
+            // The first character should either be whitespace or should start a comment or a header
             if(firstChar != '#' && firstChar != '[' && !Character.isWhitespace(firstChar)) {
                 throw new ShortcutReadException("Shortcut file is invalid");
             }

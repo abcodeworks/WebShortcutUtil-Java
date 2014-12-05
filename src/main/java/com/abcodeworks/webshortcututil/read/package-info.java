@@ -34,7 +34,7 @@
  * these names are not necessarily updated when the shortcut is renamed.
  * It is difficult, if not impossible, to determine which is the correct name.
  * As of right now, the reader will always return the name of the file as the
- * name of the shortcut, although this may change in the future.
+ * base name of the shortcut file, although this may change in the future.
  * </p>
  * 
  * <p>
@@ -51,7 +51,7 @@
  * {@link com.abcodeworks.webshortcututil.read.UrlShortcutReader UrlShortcutReader},
  * {@link com.abcodeworks.webshortcututil.read.WebsiteShortcutReader WebsiteShortcutReader},
  * or {@link com.abcodeworks.webshortcututil.read.WeblocShortcutReader WeblocShortcutReader})
- * and then call the {@link com.abcodeworks.webshortcututil.read.ShortcutReader#readUrlString readUrlString} method.
+ * and then call the {@link com.abcodeworks.webshortcututil.read.ShortcutReader#readUrlString(InputStream) readUrlString} method.
  * A usage example follows:
  *  <pre>
  * {@code

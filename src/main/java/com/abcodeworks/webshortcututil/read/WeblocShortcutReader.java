@@ -46,7 +46,7 @@ public class WeblocShortcutReader extends ShortcutReader {
         
         try {
             /* Parse the file and extract the URL.
-             * The plist library will figure out whether the file is a Binary or an XML file.
+             * The plist library will figure out whether the file is a Binary or an XML file
              * and parse it appropriately.
              */
             NSDictionary rootDict = (NSDictionary)PropertyListParser.parse(stream);

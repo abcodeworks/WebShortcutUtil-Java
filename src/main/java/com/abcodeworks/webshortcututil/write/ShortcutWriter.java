@@ -36,11 +36,11 @@ import java.util.regex.Pattern;
  */
 public abstract class ShortcutWriter {
         /**
-         * The default maximum file name length used by {@link #DEFAULT_MAX_FILENAME_LENGTH}.
+         * Default maximum file name length used by the create filename methods.
          */
         public final int DEFAULT_MAX_FILENAME_LENGTH = 100;
         
-        /* Indicates characters that are valid file name characters.
+        /* Matches characters that are invalid for file names.
          * This works by matching characters that are not in a list of valid characters.
          * Note that unicode characters are all considered valid. 
          */
@@ -54,12 +54,10 @@ public abstract class ShortcutWriter {
         abstract public String defaultExtension();
     
         /**
-         * Similar to {#link #write(File, String, String)} but writes to a stream instead of a file.
+         * Similar to {@link #write(File, String, String)} but writes to a stream instead of a file.
          * 
-         * The stream is not closed.  It is the responsibility of the caller to close it.
-         * 
-         * @param stream The stream to write to.  The stream is closed.
-         * @param name The name of the shortcut.  These may be ignored depending on the shortcut type.
+         * @param stream The stream to write to.  The stream is automatically closed when finished writing.
+         * @param name The name of the shortcut.  This may be ignored depending on the shortcut type.
          * @param url The URL.
          * @throws ShortcutWriteException If any error occurs while writing to the stream.
          */
@@ -118,6 +116,7 @@ public abstract class ShortcutWriter {
          * @return A valid file name with a complete extension.  The size will be less than maxLength.  Non-null.
          */
         public String createFullFilename(String name, int maxLength) {
+            // Get the base name and add an extension.
             return createBaseFilename(name, maxLength) + "." + defaultExtension();
         }
 
@@ -137,8 +136,8 @@ public abstract class ShortcutWriter {
             String extension = defaultExtension();
             String cleanName;
             
-            /* Get the minimum length of a file name with the given extension
-               check it against the supplied maxLength. */
+            /* Get the minimum length of a file name with the given extension.
+               Check it against the supplied maxLength. */
             int minLength = extension.length() + 2;
             if(maxLength < minLength) {
                 throw new IllegalArgumentException("maxLength must be greater than or equal to " + minLength);
@@ -162,7 +161,7 @@ public abstract class ShortcutWriter {
             // (when the extension is included).
             int nameMaxLength = Math.min(maxLength - extension.length() - 1, cleanName.length());
             
-            // Truncate the base name and add the extension.
+            // Truncate the base name
             String filename = cleanName.substring(0, nameMaxLength);
             
             return filename;
@@ -177,12 +176,12 @@ public abstract class ShortcutWriter {
          * 
          * If your URL contains unicode characters, it is recommended that
          * you convert it to an ASCII-only URL
-         * (see http://en.wikipedia.org/wiki/Internationalized_domain_name ).
+         * (see <a href="http://en.wikipedia.org/wiki/Internationalized_domain_name">http://en.wikipedia.org/wiki/Internationalized_domain_name</a> ).
          * That being said, DesktopShortcutWriter and UrlShortcutWriter
          * will write unicode URLs.  The webloc writers should as well,
          * although this functionality requires more testing.
          * 
-         * @param file
+         * @param file The file to write to. The file must not already exist.
          * @param name The name of the shortcut.  These may be ignored depending on the shortcut type.
          * @param url The URL.
          * @throws FileAlreadyExistsException

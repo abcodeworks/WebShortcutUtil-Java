@@ -4,16 +4,15 @@
  *
  * <p>
  * To create a shortcut you first need to instantiate the appropriate writer class (
- * {@link com.abcodeworks.webshortcututil.write.DesktopShortcutWriter DesktopShortcutReader}
- * {@link com.abcodeworks.webshortcututil.write.UrlShortcutWriter UrlShortcutReader},
+ * {@link com.abcodeworks.webshortcututil.write.DesktopShortcutWriter DesktopShortcutWriter},
+ * {@link com.abcodeworks.webshortcututil.write.UrlShortcutWriter UrlShortcutWriter},
  * {@link com.abcodeworks.webshortcututil.write.WeblocBinaryShortcutWriter WeblocBinaryShortcutWriter},
  * or {@link com.abcodeworks.webshortcututil.write.WeblocXmlShortcutWriter WeblocXmlShortcutWriter}).
  * If you want to create a file, call the
  * {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#write(File, String, String) write}
- * method.  You can use the
- * {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#createFullFilename(String) createFullFilename}
- * method to generate a file name.  It takes the provided base file name, adds the appropriate extension,
- * and removes any special characters in the name.  The generated file name should be compatible with most
+ * method.  You can use the {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#createBaseFilename(String) createBaseFilename}
+ * or {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#createFullFilename(String) createFullFilename}
+ * methods to generate a file name.  The generated file name should be compatible with most
  * operating systems.  If you need to write the shortcut to a stream, use the 
  * {@link com.abcodeworks.webshortcututil.write.ShortcutWriter#write(OutputStream, String, String) write} method.
  * A usage example follows:
@@ -50,11 +49,12 @@
  * format.  They both are
  * recognized by OSX.  Also note that there is no way to create a Website shortcut.  This is due to the
  * complexity of the file format.  If you want to generate a Windows-compatible shortcut,
- * use {@link com.abcodeworks.webshortcututil.write.UrlShortcutWriter UrlShortcutReader}.
+ * use {@link com.abcodeworks.webshortcututil.write.UrlShortcutWriter UrlShortcutWriter}.
  * </p>
  * 
  * <p>
- * The methods that write to streams will automatically close the streams when finished with them.
+ * The methods that write to streams will automatically close the streams when finished with them,
+ * (this is different from the behavior of the readers).
  * </p>
  *
  */
