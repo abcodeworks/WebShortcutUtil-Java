@@ -36,6 +36,25 @@ Building
 - To package:<br/>
   mvn package<br/>
   The jar file is in the target/ folder
+  
+- To deploy to the Maven repository:<br/>
+  Follow this guide: http://central.sonatype.org/pages/ossrh-guide.html
+  To stage:   mvn clean deploy
+  To release: mvn nexus-staging:release
+  
+  Need local settings.xml in ~.m2/ folder:<br/>
+    <settings>
+      <servers>
+        <server>
+          <id>ossrh</id>
+          <username>xxx</username>
+          <password>yyy</password>
+        </server>
+      </servers>
+    </settings>
+  
+  Need GPG key set up:<br/>
+  For backuping up/restoring keys: https://help.ubuntu.com/community/GnuPrivacyGuardHowto
 
 Future Ideas
 ------------
