@@ -3,7 +3,7 @@ WebShortcutUtil (Java library)
 
 Summary
 -------
-Java library for reading and writing web shortcut files
+This application allow you to launch web/internet shortcuts created in Windows, Linux, and Apple. Specifically, these are files with the following extensions: .url, .website, .desktop, .webloc. This application is part of the [Web Shortcut Utility Suite](http://beckus.github.io/WebShortcutUtil/).
 
 Websites
 --------
@@ -11,6 +11,16 @@ Main Website: http://beckus.github.io/WebShortcutUtil/<br/>
 Maven Repository: http://mvnrepository.com/artifact/com.abcodeworks/webshortcututil<br/>
 JavaDocs:     http://abcodeworks.github.io/WebShortcutUtil-Java/javadoc/latest/<br/>
 Source Code:  https://github.com/abcodeworks/WebShortcutUtil-Java/<br/>
+
+Maven Repository
+----------------
+The library is published to the Maven repository.  Use the following dependency:
+
+    <dependency>
+        <groupId>com.abcodeworks</groupId>
+        <artifactId>webshortcututil</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 
 Building
 --------
