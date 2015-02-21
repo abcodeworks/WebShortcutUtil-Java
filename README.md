@@ -20,7 +20,7 @@ The library is published to the Maven repository.  Use the following dependency:
     <dependency>
         <groupId>com.abcodeworks</groupId>
         <artifactId>webshortcututil</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 
 Building
