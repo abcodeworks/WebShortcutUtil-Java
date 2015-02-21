@@ -5,7 +5,7 @@
   <groupId>com.abcodeworks</groupId>
   <artifactId>webshortcututil</artifactId>
   <!-- Will follow this guide for versioning: http://semver.org/ -->
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
 
   <name>WebShortcutUtil</name>
