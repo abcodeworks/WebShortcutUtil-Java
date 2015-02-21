@@ -64,7 +64,7 @@ public class UrlShortcutWriter extends ShortcutWriter {
             } else {
                 // We still need the ASCII sections, or Windows gives an error.
                 Pattern unicodeCharPattern = Pattern.compile("[\u0080-\uFFFF]");
-                Matcher matcher = unicodeCharPattern.matcher(name);
+                Matcher matcher = unicodeCharPattern.matcher(url);
                 String ascii_url = matcher.replaceAll("_");
                 writeSection(writer, "InternetShortcut", ascii_url);
                 writeSection(writer, "InternetShortcut.A", ascii_url);
