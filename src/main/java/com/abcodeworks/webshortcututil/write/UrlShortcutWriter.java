@@ -27,6 +27,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.abcodeworks.webshortcututil.read.ShortcutReadException;
 
@@ -39,6 +41,16 @@ public class UrlShortcutWriter extends ShortcutWriter {
         return "url";
     }
     
+    protected void writeSection(BufferedWriter writer, String header, String url)
+            throws IOException {
+        writer.write("[");
+        writer.write(header);
+        writer.write("]\r\n");
+        writer.write("URL=");
+        writer.write(url);
+        writer.write("\r\n");
+    }
+    
     @Override
     public void write(OutputStream stream, String name, String url)
             throws ShortcutWriteException {
@@ -48,23 +60,21 @@ public class UrlShortcutWriter extends ShortcutWriter {
             // See http://stackoverflow.com/questions/3585053/in-java-is-it-possible-to-check-if-a-string-is-only-ascii
             CharsetEncoder asciiEncoder = Charset.forName("US-ASCII").newEncoder();
             if(asciiEncoder.canEncode(url)) {
-                writer.write("[InternetShortcut]\r\n");
-                writer.write("URL=");
-                writer.write(url);
-                writer.write("\r\n");
+                writeSection(writer, "InternetShortcut", url);
             } else {
-                writer.write("[InternetShortcut.W]\r\n");
-                writer.write("URL=");
-
-                byte[] asciiBytes = url.getBytes("UTF-7");
+                // We still need the ASCII sections, or Windows gives an error.
+                Pattern unicodeCharPattern = Pattern.compile("[\u0080-\uFFFF]");
+                Matcher matcher = unicodeCharPattern.matcher(name);
+                String ascii_url = matcher.replaceAll("_");
+                writeSection(writer, "InternetShortcut", ascii_url);
+                writeSection(writer, "InternetShortcut.A", ascii_url);
 
                 // Note that the jutf7 library (http://jutf7.sourceforge.net/)
                 // needs to be added as a Maven dependency (or I think can be just
                 // added to the classpath) in order to add UTF-7 support.
+                byte[] asciiBytes = url.getBytes("UTF-7");
                 String utf7Url = new String(asciiBytes, "US-ASCII");
-
-                writer.write(utf7Url);
-                writer.write("\r\n");
+                writeSection(writer, "InternetShortcut.W", utf7Url);
             }
 
             writer.close();
