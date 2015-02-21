@@ -52,6 +52,7 @@ Building
 - To deploy to the Maven repository:<br/>
   Follow this guide: http://central.sonatype.org/pages/ossrh-guide.html
   To stage:   mvn clean deploy
+     You will be prompted for the GPG Passphrase
   To release: mvn nexus-staging:release
   
   Need local settings.xml in ~.m2/ folder:<br/>
